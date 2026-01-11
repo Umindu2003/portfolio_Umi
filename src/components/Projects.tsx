@@ -3,6 +3,17 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { Github, ExternalLink, ArrowRight, ArrowLeft, Sparkles, Code2, Palette } from 'lucide-react';
 
 const projects = [{
+  title: 'WSPR',
+  description: 'A lightweight, anonymous chat platform designed to foster confident communication in classrooms. Built with the MERN stack and TypeScript, it features real-time messaging, room capacity controls, and 24-hour auto-clearing—ensuring privacy with no accounts required.',
+  tags: ['React', 'TypeScript', 'Node.js', 'MongoDB'],
+  image: '/WSPR.png',
+  category: 'fullstack',
+  color: 'from-blue-500 to-cyan-600',
+  links: {
+    github: 'https://github.com/Umindu2003/WSPR-Chat-Platform.git',
+    demo: 'https://wspr-chat-platform.vercel.app/'
+  }
+}, {
   title: 'CropWise',
   description: 'A smart web app tailored for small-scale farmers to maximize operational efficiency. Built with the MERN stack, it streamlines daily tasks and resource tracking to modernise traditional farming methods.',
   tags: ['React', 'MongoDB', 'Node.js', 'Express'],
@@ -137,7 +148,7 @@ export function Projects() {
               className="group relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100"
             >
               {/* Project Image */}
-              <div className="relative aspect-[16/10] overflow-hidden">
+              <div className="relative aspect-[16/11] overflow-hidden">
                 <img 
                   src={project.image} 
                   alt={project.title} 
@@ -154,13 +165,13 @@ export function Projects() {
                 <h3 className="text-lg font-bold text-black mb-2 group-hover:text-[#0071E3] transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-gray-500 text-sm mb-3 leading-relaxed line-clamp-2">
+                <p className="text-gray-500 text-sm mb-3 leading-relaxed line-clamp-4">
                   {project.description}
                 </p>
 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-1.5 mb-4">
-                  {project.tags.slice(0, 3).map((tag, i) => (
+                  {project.tags.map((tag, i) => (
                     <span 
                       key={i} 
                       className="px-2 py-0.5 bg-gray-100 text-gray-600 text-[10px] font-semibold rounded-full"
@@ -168,11 +179,6 @@ export function Projects() {
                       {tag}
                     </span>
                   ))}
-                  {project.tags.length > 3 && (
-                    <span className="px-2 py-0.5 bg-gray-100 text-gray-400 text-[10px] font-semibold rounded-full">
-                      +{project.tags.length - 3}
-                    </span>
-                  )}
                 </div>
 
                 {/* Action Buttons - Always Visible */}

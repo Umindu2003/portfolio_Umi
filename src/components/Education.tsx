@@ -39,9 +39,9 @@ export function Education() {
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="w-14 h-14  object-contain mb-4 mx-auto"
+          className="w-12 h-12  object-contain mb-4 mx-auto"
         />
-        <h2 className="text-3xl md:text-4xl font-semibold text-black mb-4">
+        <h2 className="text-3xl md:text-5xl font-bold text-black mb-4">
           Education
         </h2>
         <p className="text-[#4A4A4A]">Building a strong foundation for innovation</p>

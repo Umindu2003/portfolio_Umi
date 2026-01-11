@@ -9,17 +9,11 @@ const certifications = [{
   color: 'from-red-500 to-rose-600',
   link: 'https://certificates.cs50.io/153993b9-4acc-479d-8f67-c2ecb9053231.pdf?size=letter'
 }, {
-  title: 'Meta Front-End Developer',
-  issuer: 'Coursera',
-  image: 'https://placehold.co/400x300/FFFFFF/0071E3?text=Meta+Cert',
-  color: 'from-blue-500 to-indigo-600',
-  link: '#'
-}, {
-  title: 'AWS Cloud Practitioner',
-  issuer: 'Amazon Web Services',
-  image: 'https://placehold.co/400x300/FFFFFF/0071E3?text=AWS+Cert',
-  color: 'from-orange-500 to-amber-600',
-  link: '#'
+  title: 'Scrum Fundamentals Certified (SFC™)',
+  issuer: 'VMEdu, Inc.',
+  image: '/SCRUM.png',
+  color: 'from-green-400 to-emerald-500',
+  link: 'https://c46e136a583f7e334124-ac22991740ab4ff17e21daf2ed577041.ssl.cf1.rackcdn.com/Certificate/ScrumFundamentalsCertified-UminduIsith-1138046.pdf'
 }];
 
 export function Certifications() {
@@ -48,7 +42,7 @@ export function Certifications() {
       </motion.div>
 
       {/* Compact Certification Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
         {certifications.map((cert, index) => (
           <motion.div
             key={index}
@@ -60,7 +54,7 @@ export function Certifications() {
             className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100"
           >
             {/* Certificate Image */}
-            <div className="relative aspect-[16/10] overflow-hidden">
+            <div className="relative aspect-[16/11] overflow-hidden">
               <img 
                 src={cert.image} 
                 alt={cert.title} 
@@ -75,11 +69,11 @@ export function Certifications() {
             </div>
 
             {/* Card Content */}
-            <div className="p-4">
+            <div className="p-3">
               <p className={`text-[10px] font-bold uppercase tracking-wider mb-1 bg-gradient-to-r ${cert.color} bg-clip-text text-transparent`}>
                 {cert.issuer}
               </p>
-              <h3 className="text-sm font-semibold text-gray-800 mb-3 leading-tight line-clamp-2">
+              <h3 className="text-sm font-semibold text-gray-800 mb-2 leading-tight line-clamp-2">
                 {cert.title}
               </h3>
               

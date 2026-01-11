@@ -41,7 +41,7 @@ export function Perspective() {
             <img 
               src="/Perspective.png" 
               alt="Perspective" 
-              className="w-12 h-12 object-contain -mt-7"
+              className="w-9 h-10 object-contain -mt-5"
             />
           </div>
           
