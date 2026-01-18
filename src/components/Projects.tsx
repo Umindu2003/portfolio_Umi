@@ -4,7 +4,7 @@ import { Github, ExternalLink, ArrowRight, ArrowLeft, Sparkles, Code2, Palette }
 
 const projects = [{
   title: 'WSPR',
-  description: 'A lightweight, anonymous chat platform designed to foster confident communication in classrooms. Built with the MERN stack and TypeScript, it features real-time messaging, room capacity controls, and 24-hour auto-clearing—ensuring privacy with no accounts required.',
+  description: 'A lightweight, browser-based chat system that gives students or friends a voice. Features include anonymous messaging, room codes, auto-clearing messages, and capacity control making real-time communication safe.',
   tags: ['React', 'TypeScript', 'Node.js', 'MongoDB'],
   image: '/WSPR.png',
   category: 'fullstack',

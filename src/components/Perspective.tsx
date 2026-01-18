@@ -69,7 +69,7 @@ export function Perspective() {
           {/* Creative Download CV Button */}
           <motion.a 
             href="#" // Add actual CV link here
-            className="group relative inline-flex items-center gap-3 px-8 py-4 overflow-hidden rounded-2xl font-semibold text-white transition-all duration-300"
+            className="group relative inline-flex items-center gap-3 px-6 py-4 overflow-hidden rounded-2xl font-semibold text-white transition-all duration-300"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -83,7 +83,7 @@ export function Perspective() {
             {/* Button content */}
             <span className="relative flex items-center gap-3">
               <Download size={20} className="group-hover:animate-bounce" />
-              <span>Download CV</span>
+              <span>Download Resume</span>
               <ArrowRight size={18} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
             </span>
           </motion.a>

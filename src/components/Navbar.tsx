@@ -72,7 +72,7 @@ export function Navbar() {
           <motion.img 
             src="/MainLogo.png" 
             alt="Logo" 
-            className="h-8 w-auto" 
+            className="h-6 w-auto" 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
