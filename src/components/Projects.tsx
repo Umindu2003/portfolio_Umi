@@ -84,13 +84,12 @@ export function Projects() {
     }} viewport={{
       once: true
     }} className="text-center mb-12">
-        <motion.img 
+        <img 
           src="/ProjectsU.png"
           alt="Projects"
-          className="w-14 h-14 object-contain mb-3 mx-auto"
-          whileHover={{ scale: 1.05 }}
+          className="w-10 h-10 md:w-12 md:h-12 object-contain mb-0 mx-auto"
         />
-        <h2 className="text-3xl md:text-5xl font-bold text-black mb-4">
+        <h2 className="text-4xl md:text-5xl font-bold text-black mb-4">
           Featured Projects
         </h2>
         <p className="text-[#4A4A4A] text-lg max-w-2xl mx-auto">

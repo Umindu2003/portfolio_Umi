@@ -31,9 +31,9 @@ export function Certifications() {
         <img 
           src="/CertU.png"
           alt="Certifications"
-          className="w-14 h-14 object-contain mb-2 mx-auto"
+          className="w-10 h-10 md:w-14 md:h-14 object-contain mb-0 mx-auto"
         />
-        <h2 className="text-2xl md:text-3xl font-bold text-black mb-2">
+        <h2 className="text-4xl md:text-5xl font-bold text-black mb-4">
           Certifications
         </h2>
         <p className="text-gray-500 text-sm">

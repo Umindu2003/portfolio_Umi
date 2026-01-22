@@ -77,13 +77,12 @@ export function Skills() {
     }} viewport={{
       once: true
     }} className="text-center mb-16">
-        <motion.img 
+        <img 
           src="/TechnicalU.png"
           alt="Technical Skills"
-          className="w-14 h-14 object-contain mb-4 mx-auto"
-          whileHover={{ scale: 1.05 }}
+          className="w-10 h-10 md:w-12 md:h-12 object-contain mb-0 mx-auto"
         />
-        <h2 className="text-3xl md:text-5xl font-bold text-black mb-4">
+        <h2 className="text-4xl md:text-5xl font-bold text-black mb-4">
           Technical Skills
         </h2>
         <p className="text-[#4A4A4A] max-w-2xl mx-auto text-lg">

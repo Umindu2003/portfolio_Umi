@@ -109,11 +109,10 @@ export function Contact() {
         viewport={{ once: true }}
         className="text-center mb-16"
       >
-        <motion.img 
+        <img 
           src="/ConnectU.png"
           alt="Connect"
-          className="w-14 h-14 object-contain mb-2 mx-auto"
-          whileHover={{ scale: 1.05 }}
+          className="w-10 h-10 md:w-12 md:h-12 object-contain mb-0 mx-auto"
         />
         <h2 className="text-4xl md:text-5xl font-bold text-black mb-4">
           Let's Connect
