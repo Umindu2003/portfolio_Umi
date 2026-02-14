@@ -39,7 +39,7 @@ const projects = [{
   title: 'Moody',
   description: 'A lightweight AI-powered mood tracking app that helps users build self-awareness through smart insights, real-time analytics, and detailed weekly, monthly, and yearly reports.',
   tags: ['React Native', 'TypeScript', 'Express', 'MERN Stack', 'Gemini AI'],
-  image: '/Moody.png',
+  image: '/MoodyApp.png',
   category: 'fullstack',
   color: 'from-amber-500 to-yellow-600',
   links: {
