@@ -36,6 +36,17 @@ const projects = [{
     demo: 'https://audio-frontend-puce.vercel.app/'
   }
 }, {
+  title: 'Moody',
+  description: 'A lightweight AI-powered mood tracking app that helps users build self-awareness through smart insights, real-time analytics, and detailed weekly, monthly, and yearly reports.',
+  tags: ['React Native', 'TypeScript', 'Express', 'MERN Stack', 'Gemini AI'],
+  image: '/Moody.png',
+  category: 'fullstack',
+  color: 'from-amber-500 to-yellow-600',
+  links: {
+    github: 'https://github.com/Umindu2003/Moody-App.git',
+    release: 'https://github.com/Umindu2003/Moody-App/releases/tag/v1.0.0'
+  }
+}, {
   title: 'ClassifiedAds.com Redesign',
   description: 'A collaborative UX/UI project focused on solving critical usability issues. Using Figma, we redesigned the site to eliminate visual noise, standardize consistency, and create a seamless, high-efficiency user journey.',
   tags: ['Figma', 'UX/UI', 'Design'],
@@ -202,6 +213,17 @@ export function Projects() {
                     >
                       <ExternalLink size={14} />
                       Demo
+                    </a>
+                  )}
+                  {project.links.release && (
+                    <a 
+                      href={project.links.release} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-[#0071E3] text-white text-xs font-medium rounded-lg hover:bg-[#0077ED] transition-colors"
+                    >
+                      <ExternalLink size={14} />
+                      Release
                     </a>
                   )}
                   {project.links.figma && (
