@@ -14,6 +14,18 @@ const certifications = [{
   image: '/SCRUM.png',
   color: 'from-green-400 to-emerald-500',
   link: 'https://c46e136a583f7e334124-ac22991740ab4ff17e21daf2ed577041.ssl.cf1.rackcdn.com/Certificate/ScrumFundamentalsCertified-UminduIsith-1138046.pdf'
+}, {
+  title: 'AI Data Strategy with MongoDB (on-demand)',
+  issuer: 'MongoDB',
+  image: '/Mongodb AI DATA.png',
+  color: 'from-green-500 to-green-700',
+  link: 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/b1aa6d5a-72f6-4d4d-81fc-12ec12706288-it23226432-gallage-u-i-i-25ec7627-60bd-46f1-bc74-8375a448b438-certificate.pdf'
+}, {
+  title: 'MongoDB Atlas Security',
+  issuer: 'MongoDB',
+  image: '/Mongodb Security.png',
+  color: 'from-emerald-500 to-green-600',
+  link: 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/b1aa6d5a-72f6-4d4d-81fc-12ec12706288-it23226432-gallage-u-i-i-fd9e56df-a1fb-4988-a049-b22e18de8da2-certificate.pdf'
 }];
 
 export function Certifications() {
@@ -42,7 +54,7 @@ export function Certifications() {
       </motion.div>
 
       {/* Compact Certification Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
         {certifications.map((cert, index) => (
           <motion.div
             key={index}
@@ -51,7 +63,7 @@ export function Certifications() {
             viewport={{ once: true }}
             transition={{ delay: index * 0.1 }}
             whileHover={{ y: -5 }}
-            className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100"
+            className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col"
           >
             {/* Certificate Image */}
             <div className="relative aspect-[16/11] overflow-hidden">
@@ -69,25 +81,27 @@ export function Certifications() {
             </div>
 
             {/* Card Content */}
-            <div className="p-3">
+            <div className="p-3 flex flex-col flex-grow">
               <p className={`text-[10px] font-bold uppercase tracking-wider mb-1 bg-gradient-to-r ${cert.color} bg-clip-text text-transparent`}>
                 {cert.issuer}
               </p>
-              <h3 className="text-sm font-semibold text-gray-800 mb-2 leading-tight line-clamp-2">
+              <h3 className={`font-semibold text-gray-800 mb-2 leading-tight line-clamp-2 ${cert.title.length > 38 ? 'text-xs' : 'text-sm'} min-h-[2.5rem]`}>
                 {cert.title}
               </h3>
               
               {/* View Button */}
-              <a
-                href={cert.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r ${cert.color} text-white text-xs font-medium rounded-lg hover:shadow-md transition-shadow`}
-              >
-                <Award size={12} />
-                View
-                <ExternalLink size={10} />
-              </a>
+              <div className="mt-auto">
+                <a
+                  href={cert.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r ${cert.color} text-white text-xs font-medium rounded-lg hover:shadow-md transition-shadow`}
+                >
+                  <Award size={12} />
+                  View
+                  <ExternalLink size={10} />
+                </a>
+              </div>
             </div>
           </motion.div>
         ))}
