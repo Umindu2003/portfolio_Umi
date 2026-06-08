@@ -3,6 +3,17 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { Github, ExternalLink, ArrowRight, ArrowLeft, Sparkles, Code2, Palette } from 'lucide-react';
 
 const projects = [{
+  title: 'UniWell',
+  description: 'An intelligent student support platform that combines GPA tracking, AI-powered learning tools, wellbeing monitoring, and career guidance. Features include GPA prediction, AI-generated quizzes, stress trend analysis, and personalized career recommendations to help students achieve academic and personal success.',
+  tags: ['React', 'Node.js', 'Express.js', 'MongoDB', 'OpenAI API'],
+  image: '/uniwell.png',
+  category: 'fullstack',
+  color: 'from-emerald-500 to-cyan-600',
+  links: {
+    github: 'https://github.com/Mindu315/UniWell-Student-Management-System.git',
+    demo: 'https://uni-well-student-management-system.vercel.app/'
+  }
+}, {
   title: 'WSPR',
   description: 'A lightweight, browser-based chat system that gives students or friends a voice. Features include anonymous messaging, room codes, auto-clearing messages, and capacity control making real-time communication safe.',
   tags: ['React', 'TypeScript', 'Node.js', 'MongoDB'],
