@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { Github, ExternalLink, ArrowRight, ArrowLeft, Sparkles, Code2, Palette } from 'lucide-react';
+import { Github, ExternalLink, ArrowRight, ArrowLeft, Sparkles, Code2, Palette, Maximize, Minimize } from 'lucide-react';
 
 const projects = [{
   title: 'Smart Campus Operations Hub',
@@ -110,26 +110,25 @@ export function Projects() {
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [currentGallery, setCurrentGallery] = useState<string[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  // 🔥 NEW STATE FOR FULLSCREEN 🔥
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   const filteredProjects = filter === 'all' 
     ? projects 
     : projects.filter(p => p.category === filter);
 
-  const scrollToProject = (direction: 'left' | 'right') => {
-    if (containerRef.current) {
-      const scrollAmount = direction === 'left' ? -400 : 400;
-      containerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    }
-  };
-
   const openGallery = (galleryArray: string[]) => {
     setCurrentGallery(galleryArray);
     setCurrentImageIndex(0);
+    setIsFullscreen(false); // Reset fullscreen when opening a new gallery
     setIsGalleryOpen(true);
   };
 
-  // 🧠 THE MAGIC HELPER FUNCTION!
-  // Extracts "Dashboard" from "/Dashboard.png" automatically!
+  const closeGallery = () => {
+    setIsFullscreen(false);
+    setIsGalleryOpen(false);
+  };
+
   const formatImageName = (path: string) => {
     if (!path) return '';
     const filename = path.split('/').pop() || '';
@@ -245,13 +244,14 @@ export function Projects() {
                     </a>
                   )}
 
+                  {/* Renamed to Showcase for the aesthetic vibes! */}
                   {project.gallery ? (
                     <button 
                       onClick={() => openGallery(project.gallery!)}
                       className="flex items-center gap-1.5 px-3 py-1.5 bg-[#0071E3] text-white text-xs font-medium rounded-lg hover:bg-[#0077ED] transition-colors"
                     >
                       <ExternalLink size={14} />
-                      Gallery
+                      Showcase
                     </button>
                   ) : project.links?.demo && (
                     <a 
@@ -314,31 +314,43 @@ export function Projects() {
         </motion.a>
       </motion.div>
 
-      {/* --- MODAL UPDATED WITH IMAGE TITLE --- */}
+      {/* --- 🔥 THE NEW FULLSCREEN CAPABLE MODAL 🔥 --- */}
       <AnimatePresence>
         {isGalleryOpen && currentGallery.length > 0 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-4 md:p-8"
-            onClick={() => setIsGalleryOpen(false)}
+            // Removes padding if fullscreen so it goes edge-to-edge
+            className={`fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md transition-all duration-300 ${isFullscreen ? 'p-0' : 'p-4 md:p-8'}`}
+            onClick={closeGallery}
           >
             <div 
-              className="relative max-w-6xl w-full flex flex-col items-center"
+              // Switches between max-w for normal view and w-screen/h-screen for fullscreen
+              className={`relative flex flex-col items-center transition-all duration-300 ${isFullscreen ? 'w-screen h-screen justify-center' : 'max-w-6xl w-full'}`}
               onClick={(e) => e.stopPropagation()} 
             >
+              {/* Close Button - Shifts position based on fullscreen state */}
               <button
-                onClick={() => setIsGalleryOpen(false)}
-                className="absolute -top-12 right-0 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 transition-all rounded-full px-4 py-2 text-sm font-semibold backdrop-blur-md"
+                onClick={closeGallery}
+                className={`absolute z-[110] text-white/80 hover:text-white bg-white/10 hover:bg-white/20 transition-all rounded-full px-4 py-2 text-sm font-semibold backdrop-blur-md ${isFullscreen ? 'top-4 right-4 md:top-6 md:right-6' : '-top-12 right-0'}`}
               >
                 ✕ Close
               </button>
 
-              <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl border border-white/10 bg-black/50 flex items-center justify-center">
+              <div className={`relative w-full flex items-center justify-center group transition-all duration-300 ${isFullscreen ? 'h-full bg-black' : 'aspect-video rounded-xl overflow-hidden shadow-2xl border border-white/10 bg-black/50'}`}>
                 
-                {/* 🔥 NEW: THE IMAGE TITLE BADGE 🔥 */}
-                <div className="absolute top-4 left-1/2 -translate-x-1/2 px-6 py-2 bg-black/60 backdrop-blur-md rounded-full border border-white/10 z-10 shadow-lg">
+                {/* 🔍 FULLSCREEN TOGGLE BUTTON 🔍 */}
+                <button
+                  onClick={() => setIsFullscreen(!isFullscreen)}
+                  className={`absolute z-[60] p-2.5 bg-black/60 hover:bg-black/80 text-white rounded-full backdrop-blur-md border border-white/10 transition-all shadow-lg ${isFullscreen ? 'top-4 right-28 md:top-6 md:right-32' : 'top-4 right-4 opacity-100 md:opacity-0 md:group-hover:opacity-100'}`}
+                  title={isFullscreen ? "Exit Fullscreen" : "View Fullscreen"}
+                >
+                  {isFullscreen ? <Minimize size={20} /> : <Maximize size={20} />}
+                </button>
+
+                {/* Title Badge */}
+                <div className={`absolute left-1/2 -translate-x-1/2 px-6 py-2 bg-black/60 backdrop-blur-md rounded-full border border-white/10 z-10 shadow-lg ${isFullscreen ? 'top-4 md:top-6' : 'top-4'}`}>
                   <h4 className="text-white text-sm md:text-base font-semibold tracking-wide">
                     {formatImageName(currentGallery[currentImageIndex])}
                   </h4>
@@ -347,25 +359,26 @@ export function Projects() {
                 <img
                   src={currentGallery[currentImageIndex]}
                   alt={`Screenshot ${currentImageIndex + 1}`}
-                  className="max-w-full max-h-full object-contain"
+                  className={`max-w-full max-h-full object-contain transition-all duration-300 ${isFullscreen ? 'w-full h-full p-2 md:p-8' : ''}`}
                 />
               </div>
 
-              <div className="flex items-center gap-6 mt-6">
+              {/* Next / Prev Controls - Floats at the bottom in fullscreen mode! */}
+              <div className={`flex items-center gap-4 md:gap-6 z-50 ${isFullscreen ? 'absolute bottom-8 left-1/2 -translate-x-1/2' : 'mt-6'}`}>
                 <button
                   onClick={() => setCurrentImageIndex((prev) => (prev === 0 ? currentGallery.length - 1 : prev - 1))}
-                  className="flex items-center gap-2 text-white bg-white/10 px-6 py-2.5 rounded-full hover:bg-white/20 transition-all backdrop-blur-md font-medium"
+                  className="flex items-center gap-1 md:gap-2 text-white bg-white/10 px-4 md:px-6 py-2.5 rounded-full hover:bg-white/20 transition-all backdrop-blur-md font-medium"
                 >
-                  <ArrowLeft size={16} /> Prev
+                  <ArrowLeft size={16} /> <span className="hidden md:inline">Prev</span>
                 </button>
                 <span className="text-white/70 font-mono tracking-widest text-sm bg-black/40 px-4 py-2 rounded-full border border-white/5">
                   {currentImageIndex + 1} / {currentGallery.length}
                 </span>
                 <button
                   onClick={() => setCurrentImageIndex((prev) => (prev === currentGallery.length - 1 ? 0 : prev + 1))}
-                  className="flex items-center gap-2 text-white bg-white/10 px-6 py-2.5 rounded-full hover:bg-white/20 transition-all backdrop-blur-md font-medium"
+                  className="flex items-center gap-1 md:gap-2 text-white bg-white/10 px-4 md:px-6 py-2.5 rounded-full hover:bg-white/20 transition-all backdrop-blur-md font-medium"
                 >
-                  Next <ArrowRight size={16} />
+                  <span className="hidden md:inline">Next</span> <ArrowRight size={16} />
                 </button>
               </div>
             </div>
