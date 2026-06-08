@@ -3,6 +3,29 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { Github, ExternalLink, ArrowRight, ArrowLeft, Sparkles, Code2, Palette } from 'lucide-react';
 
 const projects = [{
+  title: 'Smart Campus Operations Hub',
+  description: 'A modern web platform built to streamline campus resource bookings, incident management, notifications, and administrative workflows. It enhances operational efficiency through centralized management, role-based access, and real-time collaboration.',
+  tags: ['Spring Boot', 'React', 'Full Stack', 'Tailwind'],
+  image: '/SmartCampushub.png',
+  category: 'fullstack',
+  color: 'from-blue-600 to-indigo-700',
+  links: {
+    github: 'https://github.com/Mindu315/it3030-paf-2026-smart-campus-group.git',
+  },
+  gallery: [
+    '/Admin Dashboard.png',
+    '/Booking History.png',
+    '/Dashboard.png',
+    '/Notifications.png',
+    '/Profile.png',
+    '/Resource Booking.png',
+    '/Resource Catalog.png',
+    '/Resource Management - Admin.png',
+    '/Review Bookings- Admin.png',
+    '/Settings.png',
+    '/Tickets.png'
+  ]
+}, {
   title: 'UniWell',
   description: 'An intelligent student support platform that combines GPA tracking, AI-powered learning tools, wellbeing monitoring, and career guidance. Features include GPA prediction, AI-generated quizzes, stress trend analysis, and personalized career recommendations to help students achieve academic and personal success.',
   tags: ['React', 'Node.js', 'Express.js', 'MongoDB', 'OpenAI API'],
@@ -83,6 +106,10 @@ export function Projects() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeProject, setActiveProject] = useState(0);
   const [filter, setFilter] = useState<'all' | 'fullstack' | 'design'>('all');
+  
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const [currentGallery, setCurrentGallery] = useState<string[]>([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const filteredProjects = filter === 'all' 
     ? projects 
@@ -95,17 +122,24 @@ export function Projects() {
     }
   };
 
-  return <section id="projects" className="py-24 px-6 max-w-7xl mx-auto">
+  const openGallery = (galleryArray: string[]) => {
+    setCurrentGallery(galleryArray);
+    setCurrentImageIndex(0);
+    setIsGalleryOpen(true);
+  };
+
+  // 🧠 THE MAGIC HELPER FUNCTION!
+  // Extracts "Dashboard" from "/Dashboard.png" automatically!
+  const formatImageName = (path: string) => {
+    if (!path) return '';
+    const filename = path.split('/').pop() || '';
+    return filename.replace(/\.[^/.]+$/, ""); 
+  };
+
+  return (
+    <section id="projects" className="py-24 px-6 max-w-7xl mx-auto relative">
       {/* Header */}
-      <motion.div initial={{
-      opacity: 0,
-      y: 20
-    }} whileInView={{
-      opacity: 1,
-      y: 0
-    }} viewport={{
-      once: true
-    }} className="text-center mb-12">
+      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
         <img 
           src="/ProjectsU.png"
           alt="Projects"
@@ -168,20 +202,17 @@ export function Projects() {
               whileHover={{ y: -8 }}
               className="group relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100"
             >
-              {/* Project Image */}
               <div className="relative aspect-[16/11] overflow-hidden">
                 <img 
                   src={project.image} 
                   alt={project.title} 
                   className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" 
                 />
-                {/* Category Badge */}
                 <div className={`absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-bold text-white bg-gradient-to-r ${project.color}`}>
                   {project.category === 'fullstack' ? 'Full Stack' : 'Design'}
                 </div>
               </div>
 
-              {/* Project Info */}
               <div className="p-4">
                 <h3 className="text-lg font-bold text-black mb-2 group-hover:text-[#0071E3] transition-colors">
                   {project.title}
@@ -190,7 +221,6 @@ export function Projects() {
                   {project.description}
                 </p>
 
-                {/* Tags */}
                 <div className="flex flex-wrap gap-1.5 mb-4">
                   {project.tags.map((tag, i) => (
                     <span 
@@ -202,9 +232,8 @@ export function Projects() {
                   ))}
                 </div>
 
-                {/* Action Buttons - Always Visible */}
                 <div className="flex items-center gap-2 pt-3 border-t border-gray-100">
-                  {project.links.github && (
+                  {project.links?.github && (
                     <a 
                       href={project.links.github} 
                       target="_blank" 
@@ -215,7 +244,16 @@ export function Projects() {
                       Code
                     </a>
                   )}
-                  {project.links.demo && (
+
+                  {project.gallery ? (
+                    <button 
+                      onClick={() => openGallery(project.gallery!)}
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-[#0071E3] text-white text-xs font-medium rounded-lg hover:bg-[#0077ED] transition-colors"
+                    >
+                      <ExternalLink size={14} />
+                      Gallery
+                    </button>
+                  ) : project.links?.demo && (
                     <a 
                       href={project.links.demo} 
                       target="_blank" 
@@ -226,7 +264,8 @@ export function Projects() {
                       Demo
                     </a>
                   )}
-                  {project.links.release && (
+
+                  {project.links?.release && (
                     <a 
                       href={project.links.release} 
                       target="_blank" 
@@ -237,7 +276,7 @@ export function Projects() {
                       Release
                     </a>
                   )}
-                  {project.links.figma && (
+                  {project.links?.figma && (
                     <a 
                       href={project.links.figma} 
                       target="_blank" 
@@ -255,7 +294,6 @@ export function Projects() {
         </motion.div>
       </AnimatePresence>
 
-      {/* View All CTA */}
       <motion.div 
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -275,5 +313,65 @@ export function Projects() {
           <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
         </motion.a>
       </motion.div>
-    </section>;
+
+      {/* --- MODAL UPDATED WITH IMAGE TITLE --- */}
+      <AnimatePresence>
+        {isGalleryOpen && currentGallery.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-4 md:p-8"
+            onClick={() => setIsGalleryOpen(false)}
+          >
+            <div 
+              className="relative max-w-6xl w-full flex flex-col items-center"
+              onClick={(e) => e.stopPropagation()} 
+            >
+              <button
+                onClick={() => setIsGalleryOpen(false)}
+                className="absolute -top-12 right-0 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 transition-all rounded-full px-4 py-2 text-sm font-semibold backdrop-blur-md"
+              >
+                ✕ Close
+              </button>
+
+              <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl border border-white/10 bg-black/50 flex items-center justify-center">
+                
+                {/* 🔥 NEW: THE IMAGE TITLE BADGE 🔥 */}
+                <div className="absolute top-4 left-1/2 -translate-x-1/2 px-6 py-2 bg-black/60 backdrop-blur-md rounded-full border border-white/10 z-10 shadow-lg">
+                  <h4 className="text-white text-sm md:text-base font-semibold tracking-wide">
+                    {formatImageName(currentGallery[currentImageIndex])}
+                  </h4>
+                </div>
+
+                <img
+                  src={currentGallery[currentImageIndex]}
+                  alt={`Screenshot ${currentImageIndex + 1}`}
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+
+              <div className="flex items-center gap-6 mt-6">
+                <button
+                  onClick={() => setCurrentImageIndex((prev) => (prev === 0 ? currentGallery.length - 1 : prev - 1))}
+                  className="flex items-center gap-2 text-white bg-white/10 px-6 py-2.5 rounded-full hover:bg-white/20 transition-all backdrop-blur-md font-medium"
+                >
+                  <ArrowLeft size={16} /> Prev
+                </button>
+                <span className="text-white/70 font-mono tracking-widest text-sm bg-black/40 px-4 py-2 rounded-full border border-white/5">
+                  {currentImageIndex + 1} / {currentGallery.length}
+                </span>
+                <button
+                  onClick={() => setCurrentImageIndex((prev) => (prev === currentGallery.length - 1 ? 0 : prev + 1))}
+                  className="flex items-center gap-2 text-white bg-white/10 px-6 py-2.5 rounded-full hover:bg-white/20 transition-all backdrop-blur-md font-medium"
+                >
+                  Next <ArrowRight size={16} />
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
 }
