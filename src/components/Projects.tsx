@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { Github, ExternalLink, ArrowRight, ArrowLeft, Sparkles, Code2, Palette, Maximize, Minimize } from 'lucide-react';
+import { Github, ExternalLink, ArrowRight, ArrowLeft, Sparkles, Code2, Palette, Play, Maximize, Minimize } from 'lucide-react';
 
 const projects = [{
   title: 'Smart Campus Operations Hub',
@@ -11,6 +11,7 @@ const projects = [{
   color: 'from-blue-600 to-indigo-700',
   links: {
     github: 'https://github.com/Mindu315/it3030-paf-2026-smart-campus-group.git',
+    playDemo: 'https://res.cloudinary.com/dydnqclxw/video/upload/v1780941299/2026-06-08_22-56-21_euyvw0.mp4',
   },
   gallery: [
     '/Admin Dashboard.png',
@@ -241,6 +242,18 @@ export function Projects() {
                     >
                       <Github size={14} />
                       Code
+                    </a>
+                  )}
+
+                  {project.links?.playDemo && (
+                    <a 
+                      href={project.links.playDemo} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 text-white text-xs font-medium rounded-lg hover:bg-emerald-700 transition-colors"
+                    >
+                      <Play size={14} />
+                      Play Demo
                     </a>
                   )}
 
